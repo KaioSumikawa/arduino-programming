@@ -374,12 +374,56 @@ This project is an advanced distance measurement and alert system using an **ult
 - You can customize the name shown on line 2 of the LCD (`"Prof. M. Lima"`)  
 - The blue LED is only used as a helper to create the yellow color with the red and green (true RGB control not used here)
 
-## Configuration
+## Lesson 6 - Traffic Light System with 7-Segment Display
 
-You can adjust this delay for faster or slower updates:
+This project is a traffic light controller for two streets using **LEDs** and a **7-segment display**. It simulates a real-world traffic light system, alternating red, yellow, and green lights between the two streets, and includes a numeric countdown using the display.
 
-```cpp
-delay(300); // Update interval in milliseconds
+### Components Used
 
+- Arduino Uno (or compatible board)  
+- 6 LEDs (3 for Street A, 3 for Street B – Green, Yellow, Red)  
+- 1 7-segment display  
+- 220Ω resistors (for each LED and display segment)  
+- Jumper wires  
+- Breadboard  
+
+### Wiring
+
+| Component         | Arduino Pin |
+|------------------|-------------|
+| Segment A        | D2          |
+| Segment B        | D3          |
+| Segment C        | D4          |
+| Segment D        | D5          |
+| Segment E        | D6          |
+| Segment F        | D7          |
+| Segment G        | D8          |
+| Decimal Point    | D9          |
+| Street A Green   | D10         |
+| Street A Yellow  | D11         |
+| Street A Red     | D12         |
+| Street B Green   | A0          |
+| Street B Yellow  | A1          |
+| Street B Red     | A2          |
+
+### How It Works
+
+1. **Street A** starts green while **Street B** is red.  
+2. A countdown from 9 to 0 is shown on the 7-segment display.  
+3. Street A switches to yellow for 1 second, then turns red.  
+4. **Street B** turns green, and the countdown starts again.  
+5. Afterward, Street B switches to yellow, then red.  
+6. The cycle repeats indefinitely.
+
+### Code Behavior
+
+- The `display(int num)` function maps digits 0–9 to the 7-segment display.  
+- LEDs are controlled using `digitalWrite()` in a timed sequence.  
+- Countdown is shown during the green light phase only.
+
+### Notes
+
+- The decimal point is disabled throughout the cycle.  
+- This project can be expanded with sensors or pedestrian buttons in future lessons.
 
 
