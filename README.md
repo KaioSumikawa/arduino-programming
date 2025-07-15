@@ -320,47 +320,66 @@ If you have any questions or suggestions, feel free to open an issue or contact 
 
 # Lesson 5 - Arduino Projects
 
-This project is a basic motion detection alarm using an Arduino board, a PIR sensor, an LED, and a buzzer. The system detects motion and activates alerts accordingly, with Serial Monitor output for motion logs.
+This project is an advanced distance measurement and alert system using an **ultrasonic sensor**, **RGB LEDs**, and a **16x2 LCD display**. It visually indicates how far an object is using different LED colors and displays the distance on the LCD and Serial Monitor.
 
 ## Components Used
 
 - Arduino Uno (or compatible board)  
-- PIR motion sensor  
-- LED  
-- Buzzer (active or passive)  
-- 220Ω resistors (for LED and optionally buzzer)  
+- Ultrasonic sensor (HC-SR04)  
+- 16x2 LCD display (with parallel interface)  
+- 3 LEDs (Red, Green, Blue – or a common cathode RGB LED)  
+- 220Ω resistors (for each LED)  
 - Jumper wires  
 - Breadboard  
 
 ## Wiring
 
-| Component  | Arduino Pin |  
-|------------|-------------|  
-| PIR Sensor | D7          |  
-| LED        | D5          |  
-| Buzzer     | D6          |  
+| Component         | Arduino Pin |
+|------------------|-------------|
+| Ultrasonic TRIG  | D9          |
+| Ultrasonic ECHO  | D8          |
+| Green LED        | D12         |
+| Blue LED         | D11         |
+| Red LED          | D13         |
+| LCD RS           | D2          |
+| LCD E (Enable)   | D3          |
+| LCD D4           | D4          |
+| LCD D5           | D5          |
+| LCD D6           | D6          |
+| LCD D7           | D7          |
 
 ## How It Works
 
-1. On power-up, the system waits **30 seconds** to allow the PIR sensor to calibrate.  
-2. Once calibrated, it actively checks for motion.  
-3. If motion is detected:  
-   - The **LED lights up**  
-   - The **buzzer sounds (500 Hz)**  
-   - A message appears in the **Serial Monitor** with the timestamp  
-4. If no motion is detected for **5 seconds**, the system:  
-   - Turns off the LED and buzzer  
-   - Logs that motion has ended  
+1. The **ultrasonic sensor** continuously measures the distance to an object in front of it.  
+2. The distance is displayed on:
+   - The **Serial Monitor**
+   - A **16x2 LCD** screen (line 1 shows distance; line 2 shows a name or message)
+3. According to the measured distance, the system lights up:
+   - **Green LED** for distances greater than 60 cm  
+   - **Yellow** (Green + Red) for distances between 31–60 cm  
+   - **Red LED** for distances 30 cm or less  
+4. Updates are made every **300 ms** for real-time feedback.
+
+## Code Behavior
+
+- Uses the `LiquidCrystal` library for LCD control  
+- Includes functions to:
+  - Trigger and read the ultrasonic sensor
+  - Display centered text
+  - Dynamically set LED colors
+  - Print data to the Serial Monitor  
+
+## Notes
+
+- You can customize the name shown on line 2 of the LCD (`"Prof. M. Lima"`)  
+- The blue LED is only used as a helper to create the yellow color with the red and green (true RGB control not used here)
 
 ## Configuration
 
-You can easily tweak two main variables:
+You can adjust this delay for faster or slower updates:
 
 ```cpp
-int calibrationTime = 30;   // time for PIR sensor to calibrate (in seconds)
-unsigned long pause = 5000; // time (in ms) to wait after no motion 
+delay(300); // Update interval in milliseconds
 
-Credits
-This collection of Arduino projects was developed as part of the course under the guidance of Professor Marcelo Lima at Senac Registro.
 
 
