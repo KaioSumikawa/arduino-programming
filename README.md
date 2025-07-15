@@ -360,11 +360,6 @@ You can easily tweak two main variables:
 int calibrationTime = 30;   // time for PIR sensor to calibrate (in seconds)
 unsigned long pause = 5000; // time (in ms) to wait after no motion
 
----
-
-## Credits
-
-This collection of Arduino projects was developed as part of the course under the guidance of Professor **Marcelo Lima** at **Senac Registro**.
-
----
+Credits
+This collection of Arduino projects was developed as part of the course under the guidance of Professor Marcelo Lima at Senac Registro.
 
