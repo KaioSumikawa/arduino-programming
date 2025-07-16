@@ -426,4 +426,62 @@ This project is a traffic light controller for two streets using **LEDs** and a 
 - The decimal point is disabled throughout the cycle.  
 - This project can be expanded with sensors or pedestrian buttons in future lessons.
 
+# Lesson 7 - Light Tracking Servo System
+
+This Arduino project uses **LDR (Light Dependent Resistor) sensors** to detect light direction and control a **servo motor** accordingly. It's a simple and effective system that mimics how a solar panel might rotate to follow the sun.
+
+##  How It Works
+
+- Two LDRs (one on the left, one on the right) detect light intensity.
+- A third LDR monitors ambient light on a "panel" (optional).
+- The servo motor adjusts its position based on the difference between the left and right LDRs.
+- If the difference is greater than a margin, the servo rotates in the brighter direction.
+
+## ⚙ Hardware Required
+
+- 1 × Arduino Uno (or compatible board)  
+- 1 × Servo motor (e.g., SG90)  
+- 2 × LDRs (photoresistors)  
+- 2 × 10kΩ resistors (for LDR voltage divider)  
+- Optional: 1 × additional LDR for general ambient light  
+- Breadboard and jumper wires  
+
+## 🔌 Circuit Diagram
+
+   A0        A1        A2
+    |         |         |
+   LDR       LDR     (Panel LDR)
+ (Left)    (Right)
+    |         |         |
+   GND       GND       GND
+
+ Servo Signal → D5
+
+
+- Connect each LDR in a voltage divider configuration with a 10kΩ resistor.
+
+##  Code Overview
+
+- Uses the `Servo.h` library.
+- Reads analog values from pins A0 (left), A1 (right), and A2 (panel).
+- Controls servo connected to digital pin 5.
+- Uses a simple margin (`margem`) to avoid jitter.
+
+##  File Structure
+
+
+##  Getting Started
+
+1. Upload the `.ino` file to your Arduino board.
+2. Open the Serial Monitor to observe panel readings.
+3. Adjust light around the LDRs and watch the servo rotate!
+
+##  Customization
+
+- You can change the `margem` variable to make the system more or less sensitive to light differences.
+- You may adapt it to control solar panels, robotic heads, or autonomous vehicles.
+
+##  License
+
+This project is open-source and available under the MIT License.
 
