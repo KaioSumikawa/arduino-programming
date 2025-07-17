@@ -374,12 +374,114 @@ This project is an advanced distance measurement and alert system using an **ult
 - You can customize the name shown on line 2 of the LCD (`"Prof. M. Lima"`)  
 - The blue LED is only used as a helper to create the yellow color with the red and green (true RGB control not used here)
 
-## Configuration
+## Lesson 6 - Traffic Light System with 7-Segment Display
 
-You can adjust this delay for faster or slower updates:
+This project is a traffic light controller for two streets using **LEDs** and a **7-segment display**. It simulates a real-world traffic light system, alternating red, yellow, and green lights between the two streets, and includes a numeric countdown using the display.
 
-```cpp
-delay(300); // Update interval in milliseconds
+### Components Used
+
+- Arduino Uno (or compatible board)  
+- 6 LEDs (3 for Street A, 3 for Street B – Green, Yellow, Red)  
+- 1 7-segment display  
+- 220Ω resistors (for each LED and display segment)  
+- Jumper wires  
+- Breadboard  
+
+### Wiring
+
+| Component         | Arduino Pin |
+|------------------|-------------|
+| Segment A        | D2          |
+| Segment B        | D3          |
+| Segment C        | D4          |
+| Segment D        | D5          |
+| Segment E        | D6          |
+| Segment F        | D7          |
+| Segment G        | D8          |
+| Decimal Point    | D9          |
+| Street A Green   | D10         |
+| Street A Yellow  | D11         |
+| Street A Red     | D12         |
+| Street B Green   | A0          |
+| Street B Yellow  | A1          |
+| Street B Red     | A2          |
+
+### How It Works
+
+1. **Street A** starts green while **Street B** is red.  
+2. A countdown from 9 to 0 is shown on the 7-segment display.  
+3. Street A switches to yellow for 1 second, then turns red.  
+4. **Street B** turns green, and the countdown starts again.  
+5. Afterward, Street B switches to yellow, then red.  
+6. The cycle repeats indefinitely.
+
+### Code Behavior
+
+- The `display(int num)` function maps digits 0–9 to the 7-segment display.  
+- LEDs are controlled using `digitalWrite()` in a timed sequence.  
+- Countdown is shown during the green light phase only.
+
+### Notes
+
+- The decimal point is disabled throughout the cycle.  
+- This project can be expanded with sensors or pedestrian buttons in future lessons.
+
+# Lesson 7 - Light Tracking Servo System
+
+This Arduino project uses **LDR (Light Dependent Resistor) sensors** to detect light direction and control a **servo motor** accordingly. It's a simple and effective system that mimics how a solar panel might rotate to follow the sun.
+
+##  How It Works
+
+- Two LDRs (one on the left, one on the right) detect light intensity.
+- A third LDR monitors ambient light on a "panel" (optional).
+- The servo motor adjusts its position based on the difference between the left and right LDRs.
+- If the difference is greater than a margin, the servo rotates in the brighter direction.
+
+## ⚙ Hardware Required
+
+- 1 × Arduino Uno (or compatible board)  
+- 1 × Servo motor (e.g., SG90)  
+- 2 × LDRs (photoresistors)  
+- 2 × 10kΩ resistors (for LDR voltage divider)  
+- Optional: 1 × additional LDR for general ambient light  
+- Breadboard and jumper wires  
+
+## 🔌 Circuit Diagram
+
+   A0        A1        A2
+    |         |         |
+   LDR       LDR     (Panel LDR)
+ (Left)    (Right)
+    |         |         |
+   GND       GND       GND
+
+ Servo Signal → D5
 
 
+- Connect each LDR in a voltage divider configuration with a 10kΩ resistor.
+
+##  Code Overview
+
+- Uses the `Servo.h` library.
+- Reads analog values from pins A0 (left), A1 (right), and A2 (panel).
+- Controls servo connected to digital pin 5.
+- Uses a simple margin (`margem`) to avoid jitter.
+
+##  File Structure
+
+
+##  Getting Started
+
+1. Upload the `.ino` file to your Arduino board.
+2. Open the Serial Monitor to observe panel readings.
+3. Adjust light around the LDRs and watch the servo rotate!
+
+##  Customization
+
+- You can change the `margem` variable to make the system more or less sensitive to light differences.
+- You may adapt it to control solar panels, robotic heads, or autonomous vehicles.
+
+##  License
+
+This project is open-source and available under the MIT License.
 
