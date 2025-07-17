@@ -485,3 +485,50 @@ This Arduino project uses **LDR (Light Dependent Resistor) sensors** to detect l
 
 This project is open-source and available under the MIT License.
 
+# Lesson 7 - Bluetooth Gate Control with Servo Motor
+
+This project demonstrates how to control a gate using a servo motor and a Bluetooth module (HC-05) connected to an Arduino. The gate can be opened or closed by sending simple commands from a mobile phone using a Bluetooth terminal app.
+
+## 📦 Components Used
+
+- 1 × Arduino UNO (or compatible)
+- 1 × Servo Motor (SG90 or similar)
+- 1 × Bluetooth Module (HC-05 or HC-06)
+- 2 × Resistors (1kΩ and 2kΩ for voltage divider)
+- 1 × Breadboard
+- Jumper wires
+
+## ⚙️ Wiring Instructions
+
+| Bluetooth Module | Arduino       |
+|------------------|---------------|
+| VCC              | 5V            |
+| GND              | GND           |
+| TXD              | Pin 10 (RX)   |
+| RXD              | Pin 11 (TX) - Use voltage divider! |
+
+| Servo Motor | Arduino        |
+|-------------|----------------|
+| VCC (Red)   | 5V             |
+| GND (Brown) | GND            |
+| Signal (Yellow) | Pin 9     |
+
+## 📱 Commands
+
+- Send `'A'` to **open** the gate (servo goes to 180°)
+- Send `'F'` to **close** the gate (servo returns to 0°)
+
+Use any **Bluetooth Serial Controller** app on Android, or **HM-10 BLE Terminal** for iOS (if using BLE module).
+
+## 💻 Arduino Code Overview
+
+The Arduino reads characters sent over Bluetooth and moves the servo motor accordingly. It also prints status messages to both the serial monitor and the Bluetooth terminal.
+
+```cpp
+if (command == 'A') {
+  gateServo.write(180); // Open
+} else if (command == 'F') {
+  gateServo.write(0);   // Close
+}
+
+
