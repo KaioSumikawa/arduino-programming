@@ -520,15 +520,122 @@ This project demonstrates how to control a gate using a servo motor and a Blueto
 
 Use any **Bluetooth Serial Controller** app on Android, or **HM-10 BLE Terminal** for iOS (if using BLE module).
 
-##  Arduino Code Overview
+# Lesson 8 - Ultrasonic Gate Control with Bluetooth and Servo
 
-The Arduino reads characters sent over Bluetooth and moves the servo motor accordingly. It also prints status messages to both the serial monitor and the Bluetooth terminal.
+This Arduino project demonstrates a gate that opens or closes using an **ultrasonic sensor** and **Bluetooth control**. The servo motor acts as the gate actuator. The system automatically opens the gate when someone approaches within a defined distance, or manually via Bluetooth commands.
 
-```cpp
-if (command == 'A') {
-  gateServo.write(180); // Open
-} else if (command == 'F') {
-  gateServo.write(0);   // Close
-}
+---
+
+##  Features
+
+- **Automatic Mode**: Gate opens when an object is within 15 cm.
+- **Manual Mode**: Send `'A'` (open) or `'F'` (close) via Bluetooth.
+- LED indicators for open/closed status.
+
+---
+
+##  Components Required
+
+- 1 × Arduino UNO (or compatible)  
+- 1 × HC-SR04 Ultrasonic Sensor  
+- 1 × Servo Motor (SG90 or similar)  
+- 1 × Bluetooth Module (HC-05 or similar)  
+- 2 × LEDs (e.g., red and green)  
+- 2 × 220Ω resistors  
+- Breadboard and jumper wires
+
+---
+
+##  Wiring Overview
+
+### Bluetooth Module (HC-05)
+
+| Bluetooth Pin | Arduino Pin         |
+|---------------|---------------------|
+| VCC           | 5V                  |
+| GND           | GND                 |
+| TXD           | D10 (Arduino RX)    |
+| RXD           | D11 (Arduino TX)    |
+
+> ⚠ Use a voltage divider (e.g., 1kΩ + 2kΩ) between Arduino TX and Bluetooth RX to avoid damage.
+
+### Ultrasonic Sensor (HC-SR04)
+
+| Sensor Pin | Arduino Pin |
+|------------|--------------|
+| VCC        | 5V           |
+| GND        | GND          |
+| TRIG       | D7           |
+| ECHO       | D6           |
+
+### Servo Motor
+
+| Wire Color  | Function | Arduino Pin |
+|-------------|----------|-------------|
+| Red         | VCC      | 5V          |
+| Brown/Black | GND      | GND         |
+| Yellow      | Signal   | D9          |
+
+### LEDs
+
+| LED Color | Arduino Pin | Resistor |
+|-----------|--------------|----------|
+| Green     | D4           | 220Ω     |
+| Red       | D5           | 220Ω     |
+
+---
+
+##  Bluetooth Commands
+
+- `'A'` → Open the gate (180°)
+- `'F'` → Close the gate (0°)
+
+###  iOS Apps
+
+- **Serial Bluetooth Terminal BLE**
+- **HM-10 BLE Terminal**
+
+###  Android Apps
+
+- **Serial Bluetooth Terminal**
+- **Bluetooth Controller**
+
+---
+
+##  How It Works
+
+- Continuously measures distance using the ultrasonic sensor.
+- If the distance is less than 15 cm, the gate opens automatically.
+- Alternatively, receives `'A'` or `'F'` via Bluetooth to control manually.
+- LEDs provide visual feedback:
+  - Green = Open
+  - Red = Closed
+
+---
+
+##  Getting Started
+
+1. Upload the `.ino` file to your Arduino.
+2. Open the Serial Monitor (9600 baud) to debug or test.
+3. Connect to your Bluetooth module using a compatible app.
+4. Send `'A'` or `'F'`, or approach with your hand to test auto mode.
+
+---
+
+## 🛠 Customization
+
+- Change the `threshold` value in code to adjust distance sensitivity.
+- Modify servo angles for different opening behaviors.
+- Add a mode selector switch or app interface to toggle modes.
+
+---
+
+##  License
+
+This project is open-source under the [MIT License](https://opensource.org/licenses/MIT).  
+Feel free to use, modify, and share for learning or prototyping.
+
+---
+
 
 
